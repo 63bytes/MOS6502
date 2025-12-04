@@ -67,3 +67,6 @@ class BITS_LIST:
         return self._List[i]
     def __len__(self):
         return len(self._List)
+    
+uint8 = lambda v=0:BITS(v=v)
+uint16 = lambda v=0:BITS(v=v,b=16)

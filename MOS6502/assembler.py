@@ -29,51 +29,12 @@ def extractBytes(t,s,i="n"):
         bs.append(int(b[i:i+2],16))
     return bs
 
-INSTRUCS = {
-    "ADC":{
-        "IMM":{
-            "OP":0x69,
-            "N":2,
-            "#":2
-        },
-        "ABS":{
-            "OP":0x6D,
-            "N":4,
-            "#":3
-        },
-        "ZP":{
-            "OP":0x65,
-            "N":3,
-            "#":2
-        },
-        "INDX":{
-            "OP":0x61,
-            "N":6,
-            "#":2,
-        },
-        "INDY":{
-            "OP":0x71,
-            "N":5,
-            "#":2,
-        },
-        "ZPX":{
-            "OP":0x75,
-            "N":4,
-            "#":2
-        },
-        "ABX":{
-            "OP":0x7D,
-            "N":4,
-            "#":3
-        },
-        "ABY":{
-            "OP":0x79,
-            "N":4,
-            "#":3
-        }
-    },
-    "AND":{}
-}
+import json
+import os
+OPCODE_FILE = os.path.dirname(__file__) + "//opcodes/output.json"
+INSTRUCS = {}
+with open(OPCODE_FILE,"r") as f:
+    INSTRUCS = json.load(f)
 
 def Compiler(f, of):
     file = open(f,"r")
@@ -88,6 +49,7 @@ def Compiler(f, of):
     outFile = open(of, "wb")
     for x in tokens:
         outFile.write(x.to_bytes(1))
+
 Path = "Data\\mosasm\\assemTest.mosasm"
 out = "Data\\mosasm\\assemTest.mos"
 Compiler(Path,out)
